@@ -57,6 +57,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="informationLabel" destination="58o-AO-184" id="MTQ-7L-mWZ"/>
                         <outlet property="passwordField" destination="CKD-o3-oh3" id="Xl8-Gu-liF"/>
                         <segue destination="VXU-Sh-Nh3" kind="show" identifier="succedFromPasswordScreen" id="TEE-hL-T7h"/>
                     </connections>
