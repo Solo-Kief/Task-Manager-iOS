@@ -8,20 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		C6888FF82188B07F00F73E3C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6888FF72188B07F00F73E3C /* AppDelegate.swift */; };
-		C6888FFA2188B07F00F73E3C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6888FF92188B07F00F73E3C /* ViewController.swift */; };
+		C6888FFA2188B07F00F73E3C /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6888FF92188B07F00F73E3C /* PasswordViewController.swift */; };
 		C6888FFD2188B07F00F73E3C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6888FFB2188B07F00F73E3C /* Main.storyboard */; };
-		C6888FFF2188B08000F73E3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C6888FFE2188B08000F73E3C /* Assets.xcassets */; };
 		C68890022188B08000F73E3C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C68890002188B08000F73E3C /* LaunchScreen.storyboard */; };
+		C688900B2188B79B00F73E3C /* assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C688900A2188B79B00F73E3C /* assets.xcassets */; };
+		C688900D2188C85000F73E3C /* Storage Enclave.swift in Sources */ = {isa = PBXBuildFile; fileRef = C688900C2188C85000F73E3C /* Storage Enclave.swift */; };
+		C68890102188C9BF00F73E3C /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = C688900F2188C9BF00F73E3C /* Task.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		C6888FF42188B07F00F73E3C /* Task Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Task Manager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6888FF72188B07F00F73E3C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C6888FF92188B07F00F73E3C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C6888FF92188B07F00F73E3C /* PasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
 		C6888FFC2188B07F00F73E3C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		C6888FFE2188B08000F73E3C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C68890012188B08000F73E3C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C68890032188B08000F73E3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C688900A2188B79B00F73E3C /* assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = assets.xcassets; sourceTree = "<group>"; };
+		C688900C2188C85000F73E3C /* Storage Enclave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Storage Enclave.swift"; sourceTree = "<group>"; };
+		C688900F2188C9BF00F73E3C /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +58,32 @@
 		C6888FF62188B07F00F73E3C /* Task Manager */ = {
 			isa = PBXGroup;
 			children = (
-				C6888FF72188B07F00F73E3C /* AppDelegate.swift */,
-				C6888FF92188B07F00F73E3C /* ViewController.swift */,
+				C6888FF92188B07F00F73E3C /* PasswordViewController.swift */,
 				C6888FFB2188B07F00F73E3C /* Main.storyboard */,
-				C6888FFE2188B08000F73E3C /* Assets.xcassets */,
-				C68890002188B08000F73E3C /* LaunchScreen.storyboard */,
+				C68890112188C9C700F73E3C /* Data and Frameworks */,
+				C68890092188B0EA00F73E3C /* Misc */,
+				C688900A2188B79B00F73E3C /* assets.xcassets */,
 				C68890032188B08000F73E3C /* Info.plist */,
 			);
 			path = "Task Manager";
+			sourceTree = "<group>";
+		};
+		C68890092188B0EA00F73E3C /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				C6888FF72188B07F00F73E3C /* AppDelegate.swift */,
+				C68890002188B08000F73E3C /* LaunchScreen.storyboard */,
+			);
+			path = Misc;
+			sourceTree = "<group>";
+		};
+		C68890112188C9C700F73E3C /* Data and Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C688900C2188C85000F73E3C /* Storage Enclave.swift */,
+				C688900F2188C9BF00F73E3C /* Task.swift */,
+			);
+			path = "Data and Frameworks";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -96,6 +118,11 @@
 				TargetAttributes = {
 					C6888FF32188B07F00F73E3C = {
 						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.DataProtection = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -123,8 +150,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C68890022188B08000F73E3C /* LaunchScreen.storyboard in Resources */,
-				C6888FFF2188B08000F73E3C /* Assets.xcassets in Resources */,
 				C6888FFD2188B07F00F73E3C /* Main.storyboard in Resources */,
+				C688900B2188B79B00F73E3C /* assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,7 +162,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C6888FFA2188B07F00F73E3C /* ViewController.swift in Sources */,
+				C68890102188C9BF00F73E3C /* Task.swift in Sources */,
+				C688900D2188C85000F73E3C /* Storage Enclave.swift in Sources */,
+				C6888FFA2188B07F00F73E3C /* PasswordViewController.swift in Sources */,
 				C6888FF82188B07F00F73E3C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,6 +314,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MA7ASKQ2T8;
 				INFOPLIST_FILE = "Task Manager/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -292,7 +322,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Phoenix.Task-Manager";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -303,6 +333,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MA7ASKQ2T8;
 				INFOPLIST_FILE = "Task Manager/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -310,7 +341,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Phoenix.Task-Manager";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
