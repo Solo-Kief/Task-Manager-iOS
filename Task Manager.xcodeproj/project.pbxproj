@@ -14,6 +14,8 @@
 		C688900B2188B79B00F73E3C /* assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C688900A2188B79B00F73E3C /* assets.xcassets */; };
 		C688900D2188C85000F73E3C /* Storage Enclave.swift in Sources */ = {isa = PBXBuildFile; fileRef = C688900C2188C85000F73E3C /* Storage Enclave.swift */; };
 		C68890102188C9BF00F73E3C /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = C688900F2188C9BF00F73E3C /* Task.swift */; };
+		C68890132189261200F73E3C /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68890122189261200F73E3C /* TaskViewController.swift */; };
+		C6889015218934B100F73E3C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6889014218934B100F73E3C /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		C688900A2188B79B00F73E3C /* assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = assets.xcassets; sourceTree = "<group>"; };
 		C688900C2188C85000F73E3C /* Storage Enclave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Storage Enclave.swift"; sourceTree = "<group>"; };
 		C688900F2188C9BF00F73E3C /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		C68890122189261200F73E3C /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
+		C6889014218934B100F73E3C /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,8 +62,8 @@
 		C6888FF62188B07F00F73E3C /* Task Manager */ = {
 			isa = PBXGroup;
 			children = (
-				C6888FF92188B07F00F73E3C /* PasswordViewController.swift */,
 				C6888FFB2188B07F00F73E3C /* Main.storyboard */,
+				C6889016218934BA00F73E3C /* View Controllers */,
 				C68890112188C9C700F73E3C /* Data and Frameworks */,
 				C68890092188B0EA00F73E3C /* Misc */,
 				C688900A2188B79B00F73E3C /* assets.xcassets */,
@@ -84,6 +88,16 @@
 				C688900F2188C9BF00F73E3C /* Task.swift */,
 			);
 			path = "Data and Frameworks";
+			sourceTree = "<group>";
+		};
+		C6889016218934BA00F73E3C /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C6889014218934B100F73E3C /* SettingsViewController.swift */,
+				C68890122189261200F73E3C /* TaskViewController.swift */,
+				C6888FF92188B07F00F73E3C /* PasswordViewController.swift */,
+			);
+			path = "View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,8 +178,10 @@
 			files = (
 				C68890102188C9BF00F73E3C /* Task.swift in Sources */,
 				C688900D2188C85000F73E3C /* Storage Enclave.swift in Sources */,
+				C68890132189261200F73E3C /* TaskViewController.swift in Sources */,
 				C6888FFA2188B07F00F73E3C /* PasswordViewController.swift in Sources */,
 				C6888FF82188B07F00F73E3C /* AppDelegate.swift in Sources */,
+				C6889015218934B100F73E3C /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

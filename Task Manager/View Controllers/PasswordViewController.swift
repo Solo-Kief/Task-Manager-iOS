@@ -12,13 +12,20 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         if StorageEnclave.Access.verifyPassword(textField.text!) {
-            performSegue(withIdentifier: "succedFromPasswordScreen", sender: nil)
+            UIView.animate(withDuration: 0.5) {
+                self.view.backgroundColor = UIColor.green
+                self.informationLabel.isHidden = true
+            }
+            
+            let timer = Timer(timeInterval: 0, repeats: false) { _ in
+                self.performSegue(withIdentifier: "succedFromPasswordScreen", sender: nil)
+            }
+            timer.fireDate = Date().addingTimeInterval(0.75)
         } else {
             let originalColor = view.backgroundColor
             UIView.animate(withDuration: 0.5) {self.view.backgroundColor = UIColor.red}
@@ -26,6 +33,7 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
             
             let timer = Timer(timeInterval: 0, repeats: false) { _ in
                 UIView.animate(withDuration: 0.5) {self.view.backgroundColor = originalColor}
+                
             }
             timer.fireDate = Date().addingTimeInterval(1)
         }
