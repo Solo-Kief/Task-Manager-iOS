@@ -47,7 +47,7 @@ class SettingsViewController: UIViewController {
             TextField.textAlignment = .center
         }
         
-        let cancleAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
         let removePasswordAction = UIAlertAction(title: "Remove Password", style: .default) { _ in
             if !StorageEnclave.Access.unsetPassword(alert.textFields![0].text!) {
                 let failure = UIAlertController(title: "Passoword Incorrect", message: "The password given was incorrect and the change was not made.", preferredStyle: .alert)
@@ -79,7 +79,7 @@ class SettingsViewController: UIViewController {
             }
         }
         
-        alert.addAction(cancleAction)
+        alert.addAction(cancelAction)
         if StorageEnclave.Access.isPasswordSet() {
             alert.addAction(removePasswordAction)
             alert.addAction(changePasswordAction)
@@ -97,7 +97,7 @@ class SettingsViewController: UIViewController {
             textField.isSecureTextEntry = true
         }
         
-        let cancleAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
             if !StorageEnclave.Access.resetAllData(currentPassword: alert.textFields![0].text) {
                 let failure = UIAlertController(title: "Passoword Was Incorrect", message: "The password given was incorrect, so the data was not reset.", preferredStyle: .alert)
@@ -113,7 +113,7 @@ class SettingsViewController: UIViewController {
             }
         })
         
-        alert.addAction(cancleAction)
+        alert.addAction(cancelAction)
         alert.addAction(deleteAction)
         self.present(alert, animated: true, completion: nil)
     }

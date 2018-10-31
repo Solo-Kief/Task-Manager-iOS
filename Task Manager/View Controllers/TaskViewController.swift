@@ -8,13 +8,25 @@ import UIKit
 
 class TaskViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var tableView: UITableView!
+    
+    var selectedTask: Int?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.separatorStyle = .none
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return StorageEnclave.Access.taskCount()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedTask = indexPath.row
+        performSegue(withIdentifier: "editTaskSegue", sender: self)
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
@@ -55,6 +67,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell.taskCondition.text = "X"
             cell.taskCondition.backgroundColor = UIColor.red
         }
+        
         if task.image != nil {
             cell.taskImage.image = UIImage(data: task.image!)
         }
@@ -64,6 +77,12 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.taskCondition.layer.borderWidth = 1
         cell.taskImage.layer.borderWidth = 1
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? EditTaskViewController {
+            destination.selectedTask = selectedTask
+        }
     }
 }
 

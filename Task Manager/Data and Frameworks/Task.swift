@@ -58,7 +58,7 @@ class Task: NSObject, NSCoding {
         let status = aDecoder.decodeInteger(forKey: "status")
         let finishDate = aDecoder.decodeObject(forKey: "finishDate") as! Date?
         let priority = aDecoder.decodeInteger(forKey: "priority")
-        let image = aDecoder.decodeObject(forKey: "iamge") as! Data?
+        let image = aDecoder.decodeObject(forKey: "image") as! Data?
         self.init(name: name, description: description, priorityRawValue: priority, finishDate: finishDate, statusRawValue: status, image: image)
     }
     

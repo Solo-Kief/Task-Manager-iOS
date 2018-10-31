@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C643BA172189F7A7002A8478 /* AddTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C643BA162189F7A7002A8478 /* AddTaskViewController.swift */; };
+		C643BA19218A30CB002A8478 /* EditTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C643BA18218A30CB002A8478 /* EditTaskViewController.swift */; };
 		C6888FF82188B07F00F73E3C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6888FF72188B07F00F73E3C /* AppDelegate.swift */; };
 		C6888FFA2188B07F00F73E3C /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6888FF92188B07F00F73E3C /* PasswordViewController.swift */; };
 		C6888FFD2188B07F00F73E3C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6888FFB2188B07F00F73E3C /* Main.storyboard */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		C643BA162189F7A7002A8478 /* AddTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewController.swift; sourceTree = "<group>"; };
+		C643BA18218A30CB002A8478 /* EditTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskViewController.swift; sourceTree = "<group>"; };
 		C6888FF42188B07F00F73E3C /* Task Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Task Manager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6888FF72188B07F00F73E3C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C6888FF92188B07F00F73E3C /* PasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
@@ -95,8 +97,9 @@
 		C6889016218934BA00F73E3C /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				C6889014218934B100F73E3C /* SettingsViewController.swift */,
+				C643BA18218A30CB002A8478 /* EditTaskViewController.swift */,
 				C643BA162189F7A7002A8478 /* AddTaskViewController.swift */,
+				C6889014218934B100F73E3C /* SettingsViewController.swift */,
 				C68890122189261200F73E3C /* TaskViewController.swift */,
 				C6888FF92188B07F00F73E3C /* PasswordViewController.swift */,
 			);
@@ -186,6 +189,7 @@
 				C6888FF82188B07F00F73E3C /* AppDelegate.swift in Sources */,
 				C6889015218934B100F73E3C /* SettingsViewController.swift in Sources */,
 				C643BA172189F7A7002A8478 /* AddTaskViewController.swift in Sources */,
+				C643BA19218A30CB002A8478 /* EditTaskViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

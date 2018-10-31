@@ -16,6 +16,7 @@ class AddTaskViewController: UIViewController {
     
     let imagePicker = UIImagePickerController()
     var originalColor = UIColor()
+    var dateSet = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,12 +24,26 @@ class AddTaskViewController: UIViewController {
         imagePicker.delegate = self
         taskDate.minimumDate = Date()
         originalColor = addTask.tintColor
+        taskDate.addTarget(self, action: #selector(dateWasSet), for: .valueChanged)
+        
+        taskPriority.layer.cornerRadius = 15.0
+        taskPriority.layer.borderColor = addTask.tintColor.cgColor
+        taskPriority.layer.borderWidth = 1.0
+        taskPriority.layer.masksToBounds = true
+    }
+    
+    @objc func dateWasSet() {
+        dateSet = true
     }
     
     @IBAction func addTask(_ sender: Any) {
-        guard taskName.text != "" else {
+        guard taskName.text != "" && dateSet == true else {
             UIView.animate(withDuration: 0.5, animations: {self.view.backgroundColor = UIColor.red})
-            addTask.setTitle("Task Must Have Name", for: .normal)
+            if taskName.text == "" {
+                addTask.setTitle("Task Must Have Name", for: .normal)
+            } else {
+                addTask.setTitle("Must Set Finish Date", for: .normal)
+            }
             addTask.setTitleColor(.red , for: .normal)
             
             let timer = Timer.scheduledTimer(timeInterval: 0, target: self, selector: #selector(reset), userInfo: nil, repeats: false)
@@ -48,7 +63,11 @@ class AddTaskViewController: UIViewController {
             priority = .Normal
         }
         
-        StorageEnclave.Access.addTask(Task(Name: taskName.text!, Description: taskDescription.text!, finishBy: taskDate.date, priority: priority, image: taskImage.image?.pngData()))
+        if taskImage.image == #imageLiteral(resourceName: "kisspng-question-mark-icon-question-mark-5a7214f2980a92.2259030715174259066228") {
+            StorageEnclave.Access.addTask(Task(Name: taskName.text!, Description: taskDescription.text!, finishBy: taskDate.date, priority: priority, image: nil))
+        } else {
+            StorageEnclave.Access.addTask(Task(Name: taskName.text!, Description: taskDescription.text!, finishBy: taskDate.date, priority: priority, image: taskImage.image?.pngData()))
+        }
         
         UIView.animate(withDuration: 0.5, animations: {
             self.view.backgroundColor = UIColor.green
