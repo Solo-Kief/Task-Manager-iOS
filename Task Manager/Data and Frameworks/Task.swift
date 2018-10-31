@@ -12,6 +12,7 @@ class Task: NSObject, NSCoding {
     internal var status: Status
     internal var finishDate: Date
     internal var priority: Priority
+    internal var image: Data?
     
     internal enum Status: Int, Codable {
         case Incomplete = 0
@@ -30,22 +31,25 @@ class Task: NSObject, NSCoding {
         aCoder.encode(self.status.rawValue, forKey: "status")
         aCoder.encode(self.finishDate, forKey: "finishDate")
         aCoder.encode(self.priority.rawValue, forKey: "priority")
+        aCoder.encode(self.image, forKey: "image")
     }
     
-    init(Name: String, Description: String, finishBy timeToComplete: Date) { //Normal Initializer
+    init(Name: String, Description: String, finishBy timeToComplete: Date, priority: Priority, image: Data?) { //Normal Initializer
         self.name = Name
         self.Tdescription = Description
         self.status = .Incomplete
         self.finishDate = timeToComplete
-        self.priority = .Normal
+        self.priority = priority
+        self.image = image
     }
     
-    init(name: String, description: String, priorityRawValue: Int, finishDate: Date?, statusRawValue: Int) { //Initializer used for loading a saved task.
+    private init(name: String, description: String, priorityRawValue: Int, finishDate: Date?, statusRawValue: Int, image: Data?) { //Initializer used for loading a saved task.
         self.name = name
         self.Tdescription = description
         self.status = Status(rawValue: statusRawValue)!
         self.priority = Priority(rawValue: priorityRawValue)!
         self.finishDate = finishDate!
+        self.image = image
     }
     
     convenience required init?(coder aDecoder: NSCoder) { //Used to decode and initialize a saved task.
@@ -54,7 +58,8 @@ class Task: NSObject, NSCoding {
         let status = aDecoder.decodeInteger(forKey: "status")
         let finishDate = aDecoder.decodeObject(forKey: "finishDate") as! Date?
         let priority = aDecoder.decodeInteger(forKey: "priority")
-        self.init(name: name, description: description, priorityRawValue: priority, finishDate: finishDate, statusRawValue: status)
+        let image = aDecoder.decodeObject(forKey: "iamge") as! Data?
+        self.init(name: name, description: description, priorityRawValue: priority, finishDate: finishDate, statusRawValue: status, image: image)
     }
     
     

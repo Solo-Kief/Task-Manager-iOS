@@ -33,7 +33,7 @@ class StorageEnclave: NSObject, NSCoding {
     } //Generates a temporary storage enclave to be passed to the main init()
     
     internal required convenience init?(coder aDecoder: NSCoder) {
-        let password = aDecoder.decodeObject(forKey: "name") as? String
+        let password = aDecoder.decodeObject(forKey: "password") as? String
         let passwordIsSet = aDecoder.decodeBool(forKey: "passwordIsSet")
         let taskList = aDecoder.decodeObject(forKey: "taskList") as! [Task]
         
@@ -53,7 +53,14 @@ class StorageEnclave: NSObject, NSCoding {
 
     //MARK:- Password Utility Functions
     
-    func setPassword(from currentPassword: String, to newPassword: String) -> Bool {
+    func setPassword(from currentPassword: String?, to newPassword: String) -> Bool {
+        if !passwordIsSet {
+            passwordIsSet = true
+            password = newPassword
+            StorageEnclave.save()
+            return true
+        }
+        
         guard currentPassword == password else {return false}
         password = newPassword
         passwordIsSet = true
@@ -81,7 +88,6 @@ class StorageEnclave: NSObject, NSCoding {
     
     func task(at index: Int) -> Task? {
         guard (taskList.count) > 0 && index < (taskList.count) else {return nil}
-        
         return taskList[index]
     }
     
@@ -91,6 +97,11 @@ class StorageEnclave: NSObject, NSCoding {
     
     func addTask(_ task: Task) {
         taskList.append(task)
+        StorageEnclave.save()
+    }
+    
+    func deleteTask(at index: Int) {
+        taskList.remove(at: index)
         StorageEnclave.save()
     }
     
@@ -123,9 +134,16 @@ class StorageEnclave: NSObject, NSCoding {
         StorageEnclave.save()
     }
     
-    func printTask(at index: Int) {
-        let format = DateFormatter(); format.dateFormat = "MM/dd/yyyy"
+    //MARK:- Master Reset
+    
+    func resetAllData(currentPassword: String?) -> Bool {
+        guard currentPassword == password else {return false}
         
-        Swift.print("Task Name: \(taskList[index].name)\nStatus: \(taskList[index].status)\nPriority: \(taskList[index].priority)\nFinish By: \(format.string(from: taskList[index].finishDate))\nDescription: \(taskList[index].Tdescription)")
-    } //Custom format print statement from the original task class. Probably won't be used in this program.
+        password = nil
+        passwordIsSet = false
+        taskList = []
+        StorageEnclave.save()
+        
+        return true
+    }
 }
