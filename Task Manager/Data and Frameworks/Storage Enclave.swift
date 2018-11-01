@@ -5,6 +5,7 @@
 //  Copyright © 2018 Phoenix Development. All rights reserved.
 
 import Foundation
+import UserNotifications
 
 class StorageEnclave: NSObject, NSCoding {
     //MARK:- Initial Values
@@ -86,6 +87,25 @@ class StorageEnclave: NSObject, NSCoding {
     
     //MARK:- Task Utility and Access Functions
     
+    func addNotification(for task: Task) {
+        let content = UNMutableNotificationContent()
+        content.title = task.name
+        content.body = "\(task.name.capitalized) has reached it's due date and is marked as incomplete."
+        
+        let currentCalendar = Calendar.current
+        let components = currentCalendar.dateComponents([.day, .month, .year, .hour, .minute], from: task.finishDate)
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+        
+        let request = UNNotificationRequest(identifier: task.name, content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+    }
+    
+    func removeNotification(for task: Task) {
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [task.name])
+    }
+    
     func task(at index: Int) -> Task? {
         guard (taskList.count) > 0 && index < (taskList.count) else {return nil}
         return taskList[index]
@@ -97,16 +117,20 @@ class StorageEnclave: NSObject, NSCoding {
     
     func addTask(_ task: Task) {
         taskList.append(task)
+        addNotification(for: task)
         StorageEnclave.save()
     }
     
     func deleteTask(at index: Int) {
+        removeNotification(for: taskList[index])
         taskList.remove(at: index)
         StorageEnclave.save()
     }
     
     func changeNameOfTask(at index: Int, to name: String) {
+        removeNotification(for: taskList[index])
         taskList[index].name = name
+        addNotification(for: taskList[index])
         StorageEnclave.save()
     }
     
@@ -118,8 +142,10 @@ class StorageEnclave: NSObject, NSCoding {
     func changeStatusOfTask(at index: Int) {
         if taskList[index].status == .Incomplete {
             taskList[index].status = .Complete
+            removeNotification(for: taskList[index])
         } else {
             taskList[index].status = .Incomplete
+            addNotification(for: taskList[index])
         }
         StorageEnclave.save()
     }
@@ -130,7 +156,9 @@ class StorageEnclave: NSObject, NSCoding {
     }
     
     func changeFinishDateOfTask(at index: Int, to finishDate: Date) {
+        removeNotification(for: taskList[index])
         taskList[index].finishDate = finishDate
+        addNotification(for: taskList[index])
         StorageEnclave.save()
     }
     

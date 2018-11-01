@@ -5,6 +5,7 @@
 //  Copyright © 2018 Phoenix Development. All rights reserved.
 
 import UIKit
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,16 +20,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let ViewController = mainStoryboard.instantiateViewController(withIdentifier: "PasswordView")
             self.window?.rootViewController = ViewController
             self.window?.makeKeyAndVisible()
-            return true
         } else {
             self.window = UIWindow(frame: UIScreen.main.bounds)
             let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let ViewController = mainStoryboard.instantiateViewController(withIdentifier: "TaskView")
             self.window?.rootViewController = ViewController
             self.window?.makeKeyAndVisible()
-            return true
         }
-    } // Override point for customization after application launch. //This function is called when the application first loads up.
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { (success, error) in }
+        
+        return true
+    } // Override point for customization after application launch.
+      // This function is called when the application first loads up.
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -51,7 +55,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
 }
-

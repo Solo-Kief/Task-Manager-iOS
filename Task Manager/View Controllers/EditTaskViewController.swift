@@ -18,9 +18,11 @@ class EditTaskViewController: UIViewController {
     var selectedTask: Int?
     var taskInQuesiton: Task?
     let imagePicker = UIImagePickerController()
+    var mainview: EditTaskViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        mainview = self
         imagePicker.delegate = self
         hideKeyboardWhenTappedAround()
         taskPriority.layer.cornerRadius = 15.0
@@ -61,7 +63,7 @@ class EditTaskViewController: UIViewController {
             }
             
             let done = UIAlertController(title: "Task Updated", message: "The task was updated successfully", preferredStyle: .alert)
-            let cancel = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            let cancel = UIAlertAction(title: "Ok", style: .default, handler: { _ in self.mainview!.goBack(self)})
             done.addAction(cancel)
             self.present(done, animated: true, completion: nil)
         }

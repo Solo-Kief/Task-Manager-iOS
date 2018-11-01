@@ -68,15 +68,24 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let aciton = UITableViewRowAction(style: .normal, title: "Mark Complete") { (_, _) in
-            StorageEnclave.Access.changeStatusOfTask(at: indexPath.row)
-            tableView.reloadRows(at: [indexPath], with: .automatic)
+        let action: UITableViewRowAction
+        if StorageEnclave.Access.task(at: indexPath.row)?.status == .Incomplete {
+            action = UITableViewRowAction(style: .normal, title: "Mark Complete") { (_, _) in
+                StorageEnclave.Access.changeStatusOfTask(at: indexPath.row)
+                tableView.reloadRows(at: [indexPath], with: .automatic)
+            }
+        } else {
+            action = UITableViewRowAction(style: .normal, title: "Mark Incomplete") { (_, _) in
+                StorageEnclave.Access.changeStatusOfTask(at: indexPath.row)
+                tableView.reloadRows(at: [indexPath], with: .automatic)
+            }
         }
+        
         let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (_, _) in
             StorageEnclave.Access.deleteTask(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
-        return [delete, aciton]
+        return [delete, action]
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
