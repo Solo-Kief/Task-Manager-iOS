@@ -18,7 +18,6 @@
 		C68890102188C9BF00F73E3C /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = C688900F2188C9BF00F73E3C /* Task.swift */; };
 		C68890132189261200F73E3C /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68890122189261200F73E3C /* TaskViewController.swift */; };
 		C6889015218934B100F73E3C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6889014218934B100F73E3C /* SettingsViewController.swift */; };
-		C6ABFAEB218B372000BE29C2 /* Dark Sky.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6ABFAEA218B372000BE29C2 /* Dark Sky.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +34,6 @@
 		C688900F2188C9BF00F73E3C /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		C68890122189261200F73E3C /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		C6889014218934B100F73E3C /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		C6ABFAEA218B372000BE29C2 /* Dark Sky.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dark Sky.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,7 +90,6 @@
 			children = (
 				C688900C2188C85000F73E3C /* Storage Enclave.swift */,
 				C688900F2188C9BF00F73E3C /* Task.swift */,
-				C6ABFAEA218B372000BE29C2 /* Dark Sky.swift */,
 			);
 			path = "Data and Frameworks";
 			sourceTree = "<group>";
@@ -187,7 +184,6 @@
 			files = (
 				C68890102188C9BF00F73E3C /* Task.swift in Sources */,
 				C688900D2188C85000F73E3C /* Storage Enclave.swift in Sources */,
-				C6ABFAEB218B372000BE29C2 /* Dark Sky.swift in Sources */,
 				C68890132189261200F73E3C /* TaskViewController.swift in Sources */,
 				C6888FFA2188B07F00F73E3C /* PasswordViewController.swift in Sources */,
 				C6888FF82188B07F00F73E3C /* AppDelegate.swift in Sources */,

@@ -24,23 +24,6 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         return StorageEnclave.Access.taskCount()
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedTask = indexPath.row
-        performSegue(withIdentifier: "editTaskSegue", sender: self)
-    }
-    
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let aciton = UITableViewRowAction(style: .normal, title: "Mark Complete") { (_, _) in
-            StorageEnclave.Access.changeStatusOfTask(at: indexPath.row)
-            tableView.reloadRows(at: [indexPath], with: .automatic)
-        }
-        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (_, _) in
-            StorageEnclave.Access.deleteTask(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-        }
-        return [delete, aciton]
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell") as! TaskCell
         let task = StorageEnclave.Access.task(at: indexPath.row)!
@@ -77,6 +60,23 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.taskCondition.layer.borderWidth = 1
         cell.taskImage.layer.borderWidth = 1
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedTask = indexPath.row
+        performSegue(withIdentifier: "editTaskSegue", sender: self)
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let aciton = UITableViewRowAction(style: .normal, title: "Mark Complete") { (_, _) in
+            StorageEnclave.Access.changeStatusOfTask(at: indexPath.row)
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
+        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (_, _) in
+            StorageEnclave.Access.deleteTask(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+        return [delete, aciton]
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
