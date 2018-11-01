@@ -66,7 +66,7 @@ class AddTaskViewController: UIViewController {
         if taskImage.image == #imageLiteral(resourceName: "kisspng-question-mark-icon-question-mark-5a7214f2980a92.2259030715174259066228") {
             StorageEnclave.Access.addTask(Task(Name: taskName.text!, Description: taskDescription.text!, finishBy: taskDate.date, priority: priority, image: nil))
         } else {
-            StorageEnclave.Access.addTask(Task(Name: taskName.text!, Description: taskDescription.text!, finishBy: taskDate.date, priority: priority, image: taskImage.image?.pngData()))
+            StorageEnclave.Access.addTask(Task(Name: taskName.text!, Description: taskDescription.text!, finishBy: taskDate.date, priority: priority, image: taskImage.image?.jpegData(compressionQuality: 0.25)))
         }
         
         UIView.animate(withDuration: 0.5, animations: {
