@@ -549,6 +549,9 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r32-bC-DNi">
                                 <rect key="frame" x="123.66666666666669" y="44" width="128" height="128"/>
+                                <connections>
+                                    <action selector="cameraButtonTapped:" destination="Rfh-kG-abw" eventType="touchUpInside" id="55Y-au-sl8"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

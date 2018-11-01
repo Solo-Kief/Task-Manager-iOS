@@ -134,6 +134,10 @@ class StorageEnclave: NSObject, NSCoding {
         StorageEnclave.save()
     }
     
+    func changeImageOfTask(at index: Int, to image: Data) {
+        taskList[index].image = image
+        StorageEnclave.save()
+    }
     //MARK:- Master Reset
     
     func resetAllData(currentPassword: String?) -> Bool {
