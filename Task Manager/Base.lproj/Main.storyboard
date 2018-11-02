@@ -201,7 +201,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oo4-ro-m5U">
-                                <rect key="frame" x="50" y="164" width="275" height="50"/>
+                                <rect key="frame" x="50" y="144" width="275" height="50"/>
                                 <color key="backgroundColor" red="0.70195561650000005" green="0.72306901219999997" blue="0.98042351009999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="nT0-In-jV3"/>
@@ -218,7 +218,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="if8-CX-vuK">
-                                <rect key="frame" x="50" y="289" width="275" height="50"/>
+                                <rect key="frame" x="50" y="244" width="275" height="50"/>
                                 <color key="backgroundColor" red="0.70195561650000005" green="0.72306901219999997" blue="0.98042351009999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="J9N-fL-iZ4"/>
@@ -257,28 +257,56 @@
                                     <action selector="returnToTaskView:" destination="nUk-Mp-aYY" eventType="touchUpInside" id="Bm1-3L-i4A"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Tasks" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OXo-b9-H8I">
+                                <rect key="frame" x="111.66666666666669" y="388" width="152" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="HPY-Za-r48"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="n5W-0c-YC8">
+                                <rect key="frame" x="25" y="432" width="325" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Esj-VA-VJd"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="All"/>
+                                    <segment title="Incomplete"/>
+                                    <segment title="Complete"/>
+                                </segments>
+                                <connections>
+                                    <action selector="changeShownTasks:" destination="nUk-Mp-aYY" eventType="valueChanged" id="wU6-q7-iO6"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="OXo-b9-H8I" firstAttribute="centerY" secondItem="n27-zh-IFS" secondAttribute="centerY" id="DGm-Aq-nPw"/>
                             <constraint firstItem="5Sn-F2-hQR" firstAttribute="trailing" secondItem="8sn-le-U4Q" secondAttribute="trailing" constant="50" id="DR1-HJ-XXa"/>
+                            <constraint firstItem="OXo-b9-H8I" firstAttribute="centerX" secondItem="n27-zh-IFS" secondAttribute="centerX" id="Ery-TF-q9k"/>
                             <constraint firstItem="8sn-le-U4Q" firstAttribute="leading" secondItem="5Sn-F2-hQR" secondAttribute="leading" constant="50" id="LMX-4R-kK6"/>
                             <constraint firstItem="5Sn-F2-hQR" firstAttribute="trailing" secondItem="Oo4-ro-m5U" secondAttribute="trailing" constant="50" id="NSP-cp-fxb"/>
+                            <constraint firstItem="5Sn-F2-hQR" firstAttribute="trailing" secondItem="n5W-0c-YC8" secondAttribute="trailing" constant="25" id="Oj7-iG-bBu"/>
                             <constraint firstItem="5Sn-F2-hQR" firstAttribute="trailing" secondItem="if8-CX-vuK" secondAttribute="trailing" constant="50" id="SJf-63-CEK"/>
                             <constraint firstItem="if8-CX-vuK" firstAttribute="leading" secondItem="5Sn-F2-hQR" secondAttribute="leading" constant="50" id="U8d-sm-RWB"/>
                             <constraint firstItem="S4O-RM-MY2" firstAttribute="top" secondItem="5Sn-F2-hQR" secondAttribute="top" constant="20" id="Uzk-8R-mat"/>
                             <constraint firstItem="S4O-RM-MY2" firstAttribute="leading" secondItem="5Sn-F2-hQR" secondAttribute="leading" constant="25" id="aG3-Qk-k6e"/>
                             <constraint firstItem="5Sn-F2-hQR" firstAttribute="trailing" secondItem="S4O-RM-MY2" secondAttribute="trailing" constant="25" id="bOI-6N-jOa"/>
-                            <constraint firstItem="Oo4-ro-m5U" firstAttribute="top" secondItem="5Sn-F2-hQR" secondAttribute="top" constant="120" id="eWz-fc-YVK"/>
+                            <constraint firstItem="n5W-0c-YC8" firstAttribute="top" secondItem="OXo-b9-H8I" secondAttribute="bottom" constant="8" id="cfw-1o-fYs"/>
+                            <constraint firstItem="n5W-0c-YC8" firstAttribute="leading" secondItem="5Sn-F2-hQR" secondAttribute="leading" constant="25" id="dAv-rH-Bk6"/>
+                            <constraint firstItem="Oo4-ro-m5U" firstAttribute="top" secondItem="5Sn-F2-hQR" secondAttribute="top" constant="100" id="eWz-fc-YVK"/>
                             <constraint firstItem="5Sn-F2-hQR" firstAttribute="bottom" secondItem="8sn-le-U4Q" secondAttribute="bottom" id="i3N-Ao-7KP"/>
                             <constraint firstItem="Oo4-ro-m5U" firstAttribute="leading" secondItem="5Sn-F2-hQR" secondAttribute="leading" constant="50" id="lt2-9r-tBS"/>
-                            <constraint firstItem="if8-CX-vuK" firstAttribute="top" secondItem="Oo4-ro-m5U" secondAttribute="bottom" constant="75" id="rwW-gO-eSa"/>
+                            <constraint firstItem="if8-CX-vuK" firstAttribute="top" secondItem="Oo4-ro-m5U" secondAttribute="bottom" constant="50" id="rwW-gO-eSa"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5Sn-F2-hQR"/>
                     </view>
                     <connections>
                         <outlet property="changePassword" destination="Oo4-ro-m5U" id="f0R-Tp-x5M"/>
-                        <outlet property="infoLabel" destination="S4O-RM-MY2" id="T3J-Wu-eLs"/>
                         <outlet property="resetData" destination="if8-CX-vuK" id="OFk-Qv-Zj0"/>
+                        <outlet property="shownTasksSelector" destination="n5W-0c-YC8" id="3oj-83-oyn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vt6-9O-Lm7" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -14,8 +14,9 @@ class StorageEnclave: NSObject, NSCoding {
     private var password: String?
     private var passwordIsSet = false
     private var taskList: [Task] = []
+    private var selectedStatus: Task.Status?
     
-    //MARK:- Setup
+    //MARK:- Setup Functions
     
     private override init() {
         if let storedData = UserDefaults.standard.value(forKey: "StorageEnclave") {
@@ -24,27 +25,35 @@ class StorageEnclave: NSObject, NSCoding {
             password = enclave.password
             passwordIsSet = enclave.passwordIsSet
             taskList = enclave.taskList
+            selectedStatus = enclave.selectedStatus
         }
     } //Initializer performs the functions usually performed by as load() function to automatically load saved data.
     
-    private init(password: String?, passwordIsSet: Bool, taskList: [Task]) {
+    private init(password: String?, passwordIsSet: Bool, taskList: [Task], selectedStatus: Int?) {
         self.password = password
         self.passwordIsSet = passwordIsSet
         self.taskList = taskList
+        if selectedStatus == nil {
+            self.selectedStatus = nil
+        } else {
+            self.selectedStatus = Task.Status(rawValue: selectedStatus!)
+        }
     } //Generates a temporary storage enclave to be passed to the main init()
     
     internal required convenience init?(coder aDecoder: NSCoder) {
         let password = aDecoder.decodeObject(forKey: "password") as? String
         let passwordIsSet = aDecoder.decodeBool(forKey: "passwordIsSet")
         let taskList = aDecoder.decodeObject(forKey: "taskList") as! [Task]
+        let selectedStatus = aDecoder.decodeObject(forKey: "selectedStatus") as? Int
         
-        self.init(password: password, passwordIsSet: passwordIsSet, taskList: taskList)
+        self.init(password: password, passwordIsSet: passwordIsSet, taskList: taskList, selectedStatus: selectedStatus)
     } //Called by the unarchiver to decode stored data, then generate a temporary storage enclave to populate the singleton.
     
     func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.password , forKey: "password")
-        aCoder.encode(self.passwordIsSet , forKey: "passwordIsSet")
-        aCoder.encode(self.taskList , forKey: "taskList")
+        aCoder.encode(self.password, forKey: "password")
+        aCoder.encode(self.passwordIsSet, forKey: "passwordIsSet")
+        aCoder.encode(self.taskList, forKey: "taskList")
+        aCoder.encode(self.selectedStatus?.rawValue, forKey: "selectedStatus")
     } //Provides a method for encoding stored data.
     
     static func save() {
@@ -169,13 +178,45 @@ class StorageEnclave: NSObject, NSCoding {
     //MARK:- Master Reset
     
     func resetAllData(currentPassword: String?) -> Bool {
-        guard currentPassword == password else {return false}
+        if currentPassword != password && password != nil {return false}
         
         password = nil
         passwordIsSet = false
         taskList = []
+        selectedStatus = nil
         StorageEnclave.save()
         
         return true
+    }
+    
+    //MARK:- Settings Functinos
+    
+    func getSelectedStatus() -> Task.Status? {
+        return selectedStatus
+    }
+    
+    func setSelectedStatus(to status: Task.Status?) {
+        selectedStatus = status
+        StorageEnclave.save()
+    }
+    
+    func returnAllComplete() -> [Int] {
+        var array = [Int]()
+        for (i, task) in taskList.enumerated() {
+            if task.status == .Complete {
+                array.append(i)
+            }
+        }
+        return array
+    }
+    
+    func returnAllIncomplete() -> [Int] {
+        var array = [Int]()
+        for (i, task) in taskList.enumerated() {
+            if task.status == .Incomplete {
+                array.append(i)
+            }
+        }
+        return array
     }
 }

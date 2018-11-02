@@ -7,16 +7,25 @@
 import UIKit
 
 class SettingsViewController: UIViewController {
-    @IBOutlet var infoLabel: UILabel!
     @IBOutlet var changePassword: UIButton!
     @IBOutlet var resetData: UIButton!
+    @IBOutlet var shownTasksSelector: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         if !StorageEnclave.Access.isPasswordSet() {
             changePassword.setTitle("Set Password", for: .normal)
         }
+        shownTasksSelector.layer.cornerRadius = 15.0
+        shownTasksSelector.layer.borderColor = resetData.tintColor.cgColor
+        shownTasksSelector.layer.borderWidth = 1.0
+        shownTasksSelector.layer.masksToBounds = true
+        if StorageEnclave.Access.getSelectedStatus() != nil {
+            shownTasksSelector.selectedSegmentIndex = StorageEnclave.Access.getSelectedStatus()!.rawValue + 1
+        }
     }
+    
+    //MARK:- Button Options
     
     @IBAction func setPassword(_ sender: Any) {
         let alert = UIAlertController(title: "Change Password", message: "You are about to change your password. Are you sure you want to do this?", preferredStyle: .alert)
@@ -92,14 +101,24 @@ class SettingsViewController: UIViewController {
     
     @IBAction func resetData(_ sender: Any) {
         let alert = UIAlertController(title: "Delete All Data", message: "You are about to delete all stored data including all tasks and app settings. Are you sure you want to do this?", preferredStyle: .alert)
-        alert.addTextField { textField in
-            textField.placeholder = "Password"
-            textField.isSecureTextEntry = true
+        if StorageEnclave.Access.isPasswordSet() {
+            alert.addTextField { textField in
+                textField.placeholder = "Password"
+                textField.isSecureTextEntry = true
+            }
         }
         
         let cancelAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
-            if !StorageEnclave.Access.resetAllData(currentPassword: alert.textFields![0].text) {
+            let argument: String?
+            
+            if StorageEnclave.Access.isPasswordSet() {
+                argument = alert.textFields![0].text
+            } else {
+                argument = nil
+            }
+            
+            if !StorageEnclave.Access.resetAllData(currentPassword: argument) {
                 let failure = UIAlertController(title: "Passoword Was Incorrect", message: "The password given was incorrect, so the data was not reset.", preferredStyle: .alert)
                 let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                 failure.addAction(action)
@@ -117,6 +136,23 @@ class SettingsViewController: UIViewController {
         alert.addAction(deleteAction)
         self.present(alert, animated: true, completion: nil)
     }
+    
+    //MARK:- Other Options
+    
+    @IBAction func changeShownTasks(_ sender: UISegmentedControl) {
+        switch shownTasksSelector.selectedSegmentIndex {
+        case 0:
+            StorageEnclave.Access.setSelectedStatus(to: nil)
+        case 1:
+            StorageEnclave.Access.setSelectedStatus(to: .Incomplete)
+        case 2:
+            StorageEnclave.Access.setSelectedStatus(to: .Complete)
+        default:
+            StorageEnclave.Access.setSelectedStatus(to: nil)
+        }
+    }
+    
+    //MARK:- Return Button
     
     @IBAction func returnToTaskView(_ sender: Any) {
         dismiss(animated: true, completion: nil)

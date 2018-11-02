@@ -10,23 +10,46 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet var tableView: UITableView!
     
     var selectedTask: Int?
+    var inclusions: [Int]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.separatorStyle = .none
+        inclusionUpdater()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        inclusionUpdater()
         tableView.reloadData()
+    }
+    
+    func inclusionUpdater() { //Keeps a list of all tasks that meet this condition
+        switch StorageEnclave.Access.getSelectedStatus() {
+        case .Complete?:
+            inclusions = StorageEnclave.Access.returnAllComplete()
+        case .Incomplete?:
+            inclusions = StorageEnclave.Access.returnAllIncomplete()
+        default:
+            inclusions = nil
+        }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return StorageEnclave.Access.taskCount()
+        if inclusions != nil {
+            return inclusions!.count
+        } else {
+            return StorageEnclave.Access.taskCount()
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell") as! TaskCell
-        let task = StorageEnclave.Access.task(at: indexPath.row)!
+        let task: Task
+        if inclusions != nil {
+            task = StorageEnclave.Access.task(at: inclusions![indexPath.row])!
+        } else {
+            task = StorageEnclave.Access.task(at: indexPath.row)!
+        }
         let format = DateFormatter()
         format.dateStyle = .short
         
@@ -35,11 +58,11 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.taskStatus.text = "Finish by: \(format.string(from: task.finishDate))\n"
         switch task.priority {
         case .Low:
-            cell.taskStatus.text = "\(cell.taskStatus.text!)Priortity: Low"
+            cell.taskStatus.text = "\(cell.taskStatus.text!)Priority: Low"
         case .Normal:
-            cell.taskStatus.text = "\(cell.taskStatus.text!)Priortity: Normal"
+            cell.taskStatus.text = "\(cell.taskStatus.text!)Priority: Normal"
         case.High:
-            cell.taskStatus.text = "\(cell.taskStatus.text!)Priortity: High"
+            cell.taskStatus.text = "\(cell.taskStatus.text!)Priority: High"
         }
         
         switch task.status {
@@ -69,20 +92,27 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let action: UITableViewRowAction
+        var altPath = indexPath
+        
+        if inclusions != nil {
+            altPath.row = inclusions![indexPath.row]
+        } //Overrides the normal set action with the inclusion setup.
+        
         if StorageEnclave.Access.task(at: indexPath.row)?.status == .Incomplete {
             action = UITableViewRowAction(style: .normal, title: "Mark Complete") { (_, _) in
-                StorageEnclave.Access.changeStatusOfTask(at: indexPath.row)
+                StorageEnclave.Access.changeStatusOfTask(at: altPath.row)
                 tableView.reloadRows(at: [indexPath], with: .automatic)
             }
         } else {
             action = UITableViewRowAction(style: .normal, title: "Mark Incomplete") { (_, _) in
-                StorageEnclave.Access.changeStatusOfTask(at: indexPath.row)
+                StorageEnclave.Access.changeStatusOfTask(at: altPath.row)
                 tableView.reloadRows(at: [indexPath], with: .automatic)
             }
         }
         
         let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (_, _) in
-            StorageEnclave.Access.deleteTask(at: indexPath.row)
+            StorageEnclave.Access.deleteTask(at: altPath.row)
+            self.inclusions?.remove(at: indexPath.row) //Needed to correct NSInternalInconsistencyException
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
         return [delete, action]
