@@ -10,18 +10,32 @@ class SettingsViewController: UIViewController {
     @IBOutlet var changePassword: UIButton!
     @IBOutlet var resetData: UIButton!
     @IBOutlet var shownTasksSelector: UISegmentedControl!
+    @IBOutlet var sortMethodSelector: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         if !StorageEnclave.Access.isPasswordSet() {
             changePassword.setTitle("Set Password", for: .normal)
         }
+        
         shownTasksSelector.layer.cornerRadius = 15.0
         shownTasksSelector.layer.borderColor = resetData.tintColor.cgColor
         shownTasksSelector.layer.borderWidth = 1.0
         shownTasksSelector.layer.masksToBounds = true
+        sortMethodSelector.layer.cornerRadius = 15.0
+        sortMethodSelector.layer.borderColor = resetData.tintColor.cgColor
+        sortMethodSelector.layer.borderWidth = 1.0
+        sortMethodSelector.layer.masksToBounds = true
+        
         if StorageEnclave.Access.getSelectedStatus() != nil {
             shownTasksSelector.selectedSegmentIndex = StorageEnclave.Access.getSelectedStatus()!.rawValue + 1
+        }
+        if let method = StorageEnclave.Access.getSortMethod() {
+            if method == .Low {
+                sortMethodSelector.selectedSegmentIndex = 1
+            } else {
+                sortMethodSelector.selectedSegmentIndex = 2
+            }
         }
     }
     
@@ -129,6 +143,8 @@ class SettingsViewController: UIViewController {
                 success.addAction(action)
                 self.present(success, animated: true, completion: nil)
                 self.changePassword.setTitle("Set Password", for: .normal)
+                self.shownTasksSelector.selectedSegmentIndex = 0
+                self.sortMethodSelector.selectedSegmentIndex = 0
             }
         })
         
@@ -141,14 +157,23 @@ class SettingsViewController: UIViewController {
     
     @IBAction func changeShownTasks(_ sender: UISegmentedControl) {
         switch shownTasksSelector.selectedSegmentIndex {
-        case 0:
-            StorageEnclave.Access.setSelectedStatus(to: nil)
         case 1:
             StorageEnclave.Access.setSelectedStatus(to: .Incomplete)
         case 2:
             StorageEnclave.Access.setSelectedStatus(to: .Complete)
         default:
             StorageEnclave.Access.setSelectedStatus(to: nil)
+        }
+    }
+    
+    @IBAction func setSortMethod(_ sender: UISegmentedControl) {
+        switch sortMethodSelector.selectedSegmentIndex {
+        case 1:
+            StorageEnclave.Access.setSortMethod(to: .Low)
+        case 2:
+            StorageEnclave.Access.setSortMethod(to: .High)
+        default:
+            StorageEnclave.Access.setSortMethod(to: nil)
         }
     }
     

@@ -280,16 +280,43 @@
                                     <action selector="changeShownTasks:" destination="nUk-Mp-aYY" eventType="valueChanged" id="wU6-q7-iO6"/>
                                 </connections>
                             </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sort By" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iVy-8f-Xv6">
+                                <rect key="frame" x="140.66666666666666" y="482" width="94" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="jpB-i4-wjM"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="rMi-Hj-atB">
+                                <rect key="frame" x="25" y="526" width="325" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="mZx-kd-wmp"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Don't Sort"/>
+                                    <segment title="Low Priority"/>
+                                    <segment title="High Priority"/>
+                                </segments>
+                                <connections>
+                                    <action selector="changeShownTasks:" destination="nUk-Mp-aYY" eventType="valueChanged" id="MqN-Zt-ZEm"/>
+                                    <action selector="setSortMethod:" destination="nUk-Mp-aYY" eventType="valueChanged" id="jPU-ZJ-4Y9"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="OXo-b9-H8I" firstAttribute="centerY" secondItem="n27-zh-IFS" secondAttribute="centerY" id="DGm-Aq-nPw"/>
                             <constraint firstItem="5Sn-F2-hQR" firstAttribute="trailing" secondItem="8sn-le-U4Q" secondAttribute="trailing" constant="50" id="DR1-HJ-XXa"/>
                             <constraint firstItem="OXo-b9-H8I" firstAttribute="centerX" secondItem="n27-zh-IFS" secondAttribute="centerX" id="Ery-TF-q9k"/>
+                            <constraint firstItem="iVy-8f-Xv6" firstAttribute="top" secondItem="n5W-0c-YC8" secondAttribute="bottom" constant="20" id="J1f-3f-lQL"/>
                             <constraint firstItem="8sn-le-U4Q" firstAttribute="leading" secondItem="5Sn-F2-hQR" secondAttribute="leading" constant="50" id="LMX-4R-kK6"/>
                             <constraint firstItem="5Sn-F2-hQR" firstAttribute="trailing" secondItem="Oo4-ro-m5U" secondAttribute="trailing" constant="50" id="NSP-cp-fxb"/>
                             <constraint firstItem="5Sn-F2-hQR" firstAttribute="trailing" secondItem="n5W-0c-YC8" secondAttribute="trailing" constant="25" id="Oj7-iG-bBu"/>
+                            <constraint firstItem="5Sn-F2-hQR" firstAttribute="trailing" secondItem="rMi-Hj-atB" secondAttribute="trailing" constant="25" id="QIg-wL-dAm"/>
                             <constraint firstItem="5Sn-F2-hQR" firstAttribute="trailing" secondItem="if8-CX-vuK" secondAttribute="trailing" constant="50" id="SJf-63-CEK"/>
+                            <constraint firstItem="iVy-8f-Xv6" firstAttribute="centerX" secondItem="n27-zh-IFS" secondAttribute="centerX" id="SdD-lc-G1a"/>
                             <constraint firstItem="if8-CX-vuK" firstAttribute="leading" secondItem="5Sn-F2-hQR" secondAttribute="leading" constant="50" id="U8d-sm-RWB"/>
                             <constraint firstItem="S4O-RM-MY2" firstAttribute="top" secondItem="5Sn-F2-hQR" secondAttribute="top" constant="20" id="Uzk-8R-mat"/>
                             <constraint firstItem="S4O-RM-MY2" firstAttribute="leading" secondItem="5Sn-F2-hQR" secondAttribute="leading" constant="25" id="aG3-Qk-k6e"/>
@@ -299,7 +326,9 @@
                             <constraint firstItem="Oo4-ro-m5U" firstAttribute="top" secondItem="5Sn-F2-hQR" secondAttribute="top" constant="100" id="eWz-fc-YVK"/>
                             <constraint firstItem="5Sn-F2-hQR" firstAttribute="bottom" secondItem="8sn-le-U4Q" secondAttribute="bottom" id="i3N-Ao-7KP"/>
                             <constraint firstItem="Oo4-ro-m5U" firstAttribute="leading" secondItem="5Sn-F2-hQR" secondAttribute="leading" constant="50" id="lt2-9r-tBS"/>
+                            <constraint firstItem="rMi-Hj-atB" firstAttribute="leading" secondItem="5Sn-F2-hQR" secondAttribute="leading" constant="25" id="pMB-1i-hKD"/>
                             <constraint firstItem="if8-CX-vuK" firstAttribute="top" secondItem="Oo4-ro-m5U" secondAttribute="bottom" constant="50" id="rwW-gO-eSa"/>
+                            <constraint firstItem="rMi-Hj-atB" firstAttribute="top" secondItem="iVy-8f-Xv6" secondAttribute="bottom" constant="8" id="zWl-9w-vDw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5Sn-F2-hQR"/>
                     </view>
@@ -307,6 +336,7 @@
                         <outlet property="changePassword" destination="Oo4-ro-m5U" id="f0R-Tp-x5M"/>
                         <outlet property="resetData" destination="if8-CX-vuK" id="OFk-Qv-Zj0"/>
                         <outlet property="shownTasksSelector" destination="n5W-0c-YC8" id="3oj-83-oyn"/>
+                        <outlet property="sortMethodSelector" destination="rMi-Hj-atB" id="ELp-hP-dCS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vt6-9O-Lm7" userLabel="First Responder" sceneMemberID="firstResponder"/>

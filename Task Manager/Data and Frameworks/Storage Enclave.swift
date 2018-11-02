@@ -15,6 +15,7 @@ class StorageEnclave: NSObject, NSCoding {
     private var passwordIsSet = false
     private var taskList: [Task] = []
     private var selectedStatus: Task.Status?
+    private var sortMethod: Task.Priority?
     
     //MARK:- Setup Functions
     
@@ -26,17 +27,25 @@ class StorageEnclave: NSObject, NSCoding {
             passwordIsSet = enclave.passwordIsSet
             taskList = enclave.taskList
             selectedStatus = enclave.selectedStatus
+            sortMethod = enclave.sortMethod
         }
     } //Initializer performs the functions usually performed by as load() function to automatically load saved data.
     
-    private init(password: String?, passwordIsSet: Bool, taskList: [Task], selectedStatus: Int?) {
+    private init(password: String?, passwordIsSet: Bool, taskList: [Task], selectedStatus: Int?, sortMethod: Int?) {
         self.password = password
         self.passwordIsSet = passwordIsSet
         self.taskList = taskList
+        
         if selectedStatus == nil {
             self.selectedStatus = nil
         } else {
             self.selectedStatus = Task.Status(rawValue: selectedStatus!)
+        }
+        
+        if sortMethod == nil {
+            self.sortMethod = nil
+        } else {
+            self.sortMethod = Task.Priority(rawValue: sortMethod!)
         }
     } //Generates a temporary storage enclave to be passed to the main init()
     
@@ -45,8 +54,9 @@ class StorageEnclave: NSObject, NSCoding {
         let passwordIsSet = aDecoder.decodeBool(forKey: "passwordIsSet")
         let taskList = aDecoder.decodeObject(forKey: "taskList") as! [Task]
         let selectedStatus = aDecoder.decodeObject(forKey: "selectedStatus") as? Int
+        let sortMethod = aDecoder.decodeObject(forKey: "sortMethod") as? Int
         
-        self.init(password: password, passwordIsSet: passwordIsSet, taskList: taskList, selectedStatus: selectedStatus)
+        self.init(password: password, passwordIsSet: passwordIsSet, taskList: taskList, selectedStatus: selectedStatus, sortMethod: sortMethod)
     } //Called by the unarchiver to decode stored data, then generate a temporary storage enclave to populate the singleton.
     
     func encode(with aCoder: NSCoder) {
@@ -54,6 +64,7 @@ class StorageEnclave: NSObject, NSCoding {
         aCoder.encode(self.passwordIsSet, forKey: "passwordIsSet")
         aCoder.encode(self.taskList, forKey: "taskList")
         aCoder.encode(self.selectedStatus?.rawValue, forKey: "selectedStatus")
+        aCoder.encode(self.sortMethod?.rawValue, forKey: "sortMethod")
     } //Provides a method for encoding stored data.
     
     static func save() {
@@ -175,19 +186,6 @@ class StorageEnclave: NSObject, NSCoding {
         taskList[index].image = image
         StorageEnclave.save()
     }
-    //MARK:- Master Reset
-    
-    func resetAllData(currentPassword: String?) -> Bool {
-        if currentPassword != password && password != nil {return false}
-        
-        password = nil
-        passwordIsSet = false
-        taskList = []
-        selectedStatus = nil
-        StorageEnclave.save()
-        
-        return true
-    }
     
     //MARK:- Settings Functinos
     
@@ -197,6 +195,15 @@ class StorageEnclave: NSObject, NSCoding {
     
     func setSelectedStatus(to status: Task.Status?) {
         selectedStatus = status
+        StorageEnclave.save()
+    }
+    
+    func getSortMethod() -> Task.Priority? {
+        return sortMethod
+    }
+    
+    func setSortMethod(to priority: Task.Priority?) {
+        sortMethod = priority
         StorageEnclave.save()
     }
     
@@ -226,5 +233,20 @@ class StorageEnclave: NSObject, NSCoding {
             array.append(i)
         }
         return array
+    }
+    
+    //MARK:- Master Reset
+    
+    func resetAllData(currentPassword: String?) -> Bool {
+        if currentPassword != password && password != nil {return false}
+        
+        password = nil
+        passwordIsSet = false
+        taskList = []
+        selectedStatus = nil
+        sortMethod = nil
+        StorageEnclave.save()
+        
+        return true
     }
 }

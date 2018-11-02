@@ -32,6 +32,19 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         default:
             inclusions = StorageEnclave.Access.returnAll()
         }
+        
+        switch StorageEnclave.Access.getSortMethod() {
+        case .High?:
+            inclusions!.sort { (value1, value2) -> Bool in
+                return StorageEnclave.Access.task(at: value1)!.priority.rawValue > StorageEnclave.Access.task(at: value2)!.priority.rawValue
+            }
+        case .Low?:
+            inclusions!.sort { (value1, value2) -> Bool in
+                return StorageEnclave.Access.task(at: value1)!.priority.rawValue < StorageEnclave.Access.task(at: value2)!.priority.rawValue
+            }
+        default:
+            return
+        }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
