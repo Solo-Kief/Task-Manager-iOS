@@ -99,19 +99,27 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         let action: UITableViewRowAction
         var altPath = indexPath
         
-        if inclusions != nil {
-            altPath.row = inclusions![indexPath.row]
-        } //Overrides the normal set action with the inclusion setup.
+        altPath.row = inclusions![indexPath.row]
         
         if StorageEnclave.Access.task(at: indexPath.row)?.status == .Incomplete {
             action = UITableViewRowAction(style: .normal, title: "Mark Complete") { (_, _) in
                 StorageEnclave.Access.changeStatusOfTask(at: altPath.row)
-                tableView.reloadRows(at: [indexPath], with: .automatic)
+                if StorageEnclave.Access.getSelectedStatus() == .Incomplete {
+                    self.inclusions?.remove(at: indexPath.row)
+                    tableView.deleteRows(at: [indexPath], with: .automatic)
+                } else {
+                    tableView.reloadRows(at: [indexPath], with: .automatic)
+                }
             }
         } else {
             action = UITableViewRowAction(style: .normal, title: "Mark Incomplete") { (_, _) in
                 StorageEnclave.Access.changeStatusOfTask(at: altPath.row)
-                tableView.reloadRows(at: [indexPath], with: .automatic)
+                if StorageEnclave.Access.getSelectedStatus() == .Complete {
+                    self.inclusions?.remove(at: indexPath.row)
+                    tableView.deleteRows(at: [indexPath], with: .automatic)
+                } else {
+                    tableView.reloadRows(at: [indexPath], with: .automatic)
+                }
             }
         }
         
