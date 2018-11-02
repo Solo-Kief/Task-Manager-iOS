@@ -79,20 +79,32 @@ class SettingsViewController: UIViewController {
                 self.present(failure, animated: true, completion: nil)
             } else {
                 self.changePassword.setTitle("Set Password", for: .normal)
+                let success = UIAlertController(title: "Passoword Removed", message: "The password has been removed and will no longer be required at startup.", preferredStyle: .alert)
+                let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                success.addAction(action)
+                self.present(success, animated: true, completion: nil)
             }
         }
         let changePasswordAction = UIAlertAction(title: "Change Password", style: .default) { _ in
-            if StorageEnclave.Access.isPasswordSet() {
-                if !StorageEnclave.Access.setPassword(from: alert.textFields![0].text, to: alert.textFields![1].text!) {
-                    let failure = UIAlertController(title: "Passoword Incorrect", message: "The password given was incorrect and the change was not made.", preferredStyle: .alert)
-                    let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                    failure.addAction(action)
-                }
+            if !StorageEnclave.Access.setPassword(from: alert.textFields![0].text, to: alert.textFields![1].text!) {
+                let failure = UIAlertController(title: "Passoword Incorrect", message: "The password given was incorrect and the change was not made.", preferredStyle: .alert)
+                let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                failure.addAction(action)
+                self.present(failure, animated: true, completion: nil)
+            } else {
+                let success = UIAlertController(title: "Passoword Changed", message: "Your password has been changed.", preferredStyle: .alert)
+                let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                success.addAction(action)
+                self.present(success, animated: true, completion: nil)
             }
         }
         let setPasswordAction = UIAlertAction(title: "Set Password", style: .default) { _ in
             if alert.textFields![0].text! == alert.textFields![1].text! {
                 StorageEnclave.Access.setPassword(from: nil, to: alert.textFields![1].text!)
+                let success = UIAlertController(title: "Passoword Set", message: "Your password has been set.", preferredStyle: .alert)
+                let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                success.addAction(action)
+                self.present(success, animated: true, completion: nil)
                 self.changePassword.setTitle("Change Password", for: .normal)
             } else {
                 let failure = UIAlertController(title: "Passowords Don't Match", message: "The passwords given did not match, so the password was not set.", preferredStyle: .alert)

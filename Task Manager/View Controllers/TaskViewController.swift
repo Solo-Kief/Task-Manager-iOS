@@ -105,7 +105,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             action = UITableViewRowAction(style: .normal, title: "Mark Complete") { (_, _) in
                 StorageEnclave.Access.changeStatusOfTask(at: altPath.row)
                 if StorageEnclave.Access.getSelectedStatus() == .Incomplete {
-                    self.inclusions?.remove(at: indexPath.row)
+                    self.inclusionUpdater()
                     tableView.deleteRows(at: [indexPath], with: .automatic)
                 } else {
                     tableView.reloadRows(at: [indexPath], with: .automatic)
@@ -115,7 +115,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             action = UITableViewRowAction(style: .normal, title: "Mark Incomplete") { (_, _) in
                 StorageEnclave.Access.changeStatusOfTask(at: altPath.row)
                 if StorageEnclave.Access.getSelectedStatus() == .Complete {
-                    self.inclusions?.remove(at: indexPath.row)
+                    self.inclusionUpdater()
                     tableView.deleteRows(at: [indexPath], with: .automatic)
                 } else {
                     tableView.reloadRows(at: [indexPath], with: .automatic)
@@ -125,7 +125,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (_, _) in
             StorageEnclave.Access.deleteTask(at: altPath.row)
-            self.inclusions?.remove(at: indexPath.row) //Needed to correct NSInternalInconsistencyException
+            self.inclusionUpdater() //Needed to correct NSInternalInconsistencyException
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
         return [delete, action]
