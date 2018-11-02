@@ -30,26 +30,18 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         case .Incomplete?:
             inclusions = StorageEnclave.Access.returnAllIncomplete()
         default:
-            inclusions = nil
+            inclusions = StorageEnclave.Access.returnAll()
         }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if inclusions != nil {
-            return inclusions!.count
-        } else {
-            return StorageEnclave.Access.taskCount()
-        }
+        return inclusions!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell") as! TaskCell
-        let task: Task
-        if inclusions != nil {
-            task = StorageEnclave.Access.task(at: inclusions![indexPath.row])!
-        } else {
-            task = StorageEnclave.Access.task(at: indexPath.row)!
-        }
+        let task = StorageEnclave.Access.task(at: inclusions![indexPath.row])!
+        
         let format = DateFormatter()
         format.dateStyle = .short
         
@@ -86,7 +78,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedTask = indexPath.row
+        selectedTask = inclusions![indexPath.row]
         performSegue(withIdentifier: "editTaskSegue", sender: self)
     }
     

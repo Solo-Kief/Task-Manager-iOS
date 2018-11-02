@@ -219,4 +219,12 @@ class StorageEnclave: NSObject, NSCoding {
         }
         return array
     }
+    
+    func returnAll() -> [Int] {
+        var array = [Int]()
+        for i in 0..<taskList.count {
+            array.append(i)
+        }
+        return array
+    }
 }
