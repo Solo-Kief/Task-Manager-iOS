@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		585A85E4879B90DB21231038 /* Pods_Task_Manager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E165060581D30575D5373D5 /* Pods_Task_Manager.framework */; };
+		C61B3E8D218F5F6200E13C81 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C61B3E8C218F5F6200E13C81 /* Assets.xcassets */; };
 		C643BA172189F7A7002A8478 /* AddTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C643BA162189F7A7002A8478 /* AddTaskViewController.swift */; };
 		C643BA19218A30CB002A8478 /* EditTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C643BA18218A30CB002A8478 /* EditTaskViewController.swift */; };
 		C6888FF82188B07F00F73E3C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6888FF72188B07F00F73E3C /* AppDelegate.swift */; };
 		C6888FFA2188B07F00F73E3C /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6888FF92188B07F00F73E3C /* PasswordViewController.swift */; };
 		C6888FFD2188B07F00F73E3C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6888FFB2188B07F00F73E3C /* Main.storyboard */; };
 		C68890022188B08000F73E3C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C68890002188B08000F73E3C /* LaunchScreen.storyboard */; };
-		C688900B2188B79B00F73E3C /* assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C688900A2188B79B00F73E3C /* assets.xcassets */; };
 		C688900D2188C85000F73E3C /* Storage Enclave.swift in Sources */ = {isa = PBXBuildFile; fileRef = C688900C2188C85000F73E3C /* Storage Enclave.swift */; };
 		C68890102188C9BF00F73E3C /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = C688900F2188C9BF00F73E3C /* Task.swift */; };
 		C68890132189261200F73E3C /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68890122189261200F73E3C /* TaskViewController.swift */; };
@@ -27,6 +27,7 @@
 		97869A9435791DA025702453 /* Pods-Task Manager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Task Manager.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Task Manager/Pods-Task Manager.debug.xcconfig"; sourceTree = "<group>"; };
 		9E165060581D30575D5373D5 /* Pods_Task_Manager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Task_Manager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3D31CAC245F82F04EAB6E38 /* Pods-Task Manager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Task Manager.release.xcconfig"; path = "Pods/Target Support Files/Pods-Task Manager/Pods-Task Manager.release.xcconfig"; sourceTree = "<group>"; };
+		C61B3E8C218F5F6200E13C81 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C643BA162189F7A7002A8478 /* AddTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewController.swift; sourceTree = "<group>"; };
 		C643BA18218A30CB002A8478 /* EditTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskViewController.swift; sourceTree = "<group>"; };
 		C6888FF42188B07F00F73E3C /* Task Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Task Manager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -35,7 +36,6 @@
 		C6888FFC2188B07F00F73E3C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C68890012188B08000F73E3C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C68890032188B08000F73E3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C688900A2188B79B00F73E3C /* assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = assets.xcassets; sourceTree = "<group>"; };
 		C688900C2188C85000F73E3C /* Storage Enclave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Storage Enclave.swift"; sourceTree = "<group>"; };
 		C688900F2188C9BF00F73E3C /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		C68890122189261200F73E3C /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
@@ -89,8 +89,8 @@
 				C6889016218934BA00F73E3C /* View Controllers */,
 				C68890112188C9C700F73E3C /* Data and Frameworks */,
 				C68890092188B0EA00F73E3C /* Misc */,
-				C688900A2188B79B00F73E3C /* assets.xcassets */,
 				C68890032188B08000F73E3C /* Info.plist */,
+				C61B3E8C218F5F6200E13C81 /* Assets.xcassets */,
 			);
 			path = "Task Manager";
 			sourceTree = "<group>";
@@ -202,8 +202,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C68890022188B08000F73E3C /* LaunchScreen.storyboard in Resources */,
+				C61B3E8D218F5F6200E13C81 /* Assets.xcassets in Resources */,
 				C6888FFD2188B07F00F73E3C /* Main.storyboard in Resources */,
-				C688900B2188B79B00F73E3C /* assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
