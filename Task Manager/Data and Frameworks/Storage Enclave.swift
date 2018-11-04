@@ -16,6 +16,7 @@ class StorageEnclave: NSObject, NSCoding {
     private var taskList: [Task] = []
     private var selectedStatus: Task.Status?
     private var sortMethod: Task.Priority?
+    private var isShowingWeather = true
     
     //MARK:- Setup Functions
     
@@ -28,13 +29,15 @@ class StorageEnclave: NSObject, NSCoding {
             taskList = enclave.taskList
             selectedStatus = enclave.selectedStatus
             sortMethod = enclave.sortMethod
+            isShowingWeather = enclave.isShowingWeather
         }
     } //Initializer performs the functions usually performed by as load() function to automatically load saved data.
     
-    private init(password: String?, passwordIsSet: Bool, taskList: [Task], selectedStatus: Int?, sortMethod: Int?) {
+    private init(password: String?, passwordIsSet: Bool, taskList: [Task], selectedStatus: Int?, sortMethod: Int?, isShowingWeather: Bool) {
         self.password = password
         self.passwordIsSet = passwordIsSet
         self.taskList = taskList
+        self.isShowingWeather = isShowingWeather
         
         if selectedStatus == nil {
             self.selectedStatus = nil
@@ -55,8 +58,9 @@ class StorageEnclave: NSObject, NSCoding {
         let taskList = aDecoder.decodeObject(forKey: "taskList") as! [Task]
         let selectedStatus = aDecoder.decodeObject(forKey: "selectedStatus") as? Int
         let sortMethod = aDecoder.decodeObject(forKey: "sortMethod") as? Int
+        let isShowingWeather = aDecoder.decodeBool(forKey: "isShowingWeather")
         
-        self.init(password: password, passwordIsSet: passwordIsSet, taskList: taskList, selectedStatus: selectedStatus, sortMethod: sortMethod)
+        self.init(password: password, passwordIsSet: passwordIsSet, taskList: taskList, selectedStatus: selectedStatus, sortMethod: sortMethod, isShowingWeather: isShowingWeather)
     } //Called by the unarchiver to decode stored data, then generate a temporary storage enclave to populate the singleton.
     
     func encode(with aCoder: NSCoder) {
@@ -65,6 +69,7 @@ class StorageEnclave: NSObject, NSCoding {
         aCoder.encode(self.taskList, forKey: "taskList")
         aCoder.encode(self.selectedStatus?.rawValue, forKey: "selectedStatus")
         aCoder.encode(self.sortMethod?.rawValue, forKey: "sortMethod")
+        aCoder.encode(self.isShowingWeather, forKey: "isShowingWeather")
     } //Provides a method for encoding stored data.
     
     static func save() {
@@ -235,6 +240,15 @@ class StorageEnclave: NSObject, NSCoding {
         return array
     }
     
+    func toggleWeather() {
+        isShowingWeather = !isShowingWeather
+        StorageEnclave.save()
+    }
+    
+    func isWeatherShown() -> Bool {
+        return isShowingWeather
+    }
+    
     //MARK:- Master Reset
     
     func resetAllData(currentPassword: String?) -> Bool {
@@ -245,6 +259,7 @@ class StorageEnclave: NSObject, NSCoding {
         taskList = []
         selectedStatus = nil
         sortMethod = nil
+        isShowingWeather = true
         StorageEnclave.save()
         
         return true

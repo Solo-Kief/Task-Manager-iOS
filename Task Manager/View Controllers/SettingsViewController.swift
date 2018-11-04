@@ -11,13 +11,10 @@ class SettingsViewController: UIViewController {
     @IBOutlet var resetData: UIButton!
     @IBOutlet var shownTasksSelector: UISegmentedControl!
     @IBOutlet var sortMethodSelector: UISegmentedControl!
+    @IBOutlet var showWeatherSelector: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if !StorageEnclave.Access.isPasswordSet() {
-            changePassword.setTitle("Set Password", for: .normal)
-        }
-        
         shownTasksSelector.layer.cornerRadius = 15.0
         shownTasksSelector.layer.borderColor = resetData.tintColor.cgColor
         shownTasksSelector.layer.borderWidth = 1.0
@@ -26,6 +23,14 @@ class SettingsViewController: UIViewController {
         sortMethodSelector.layer.borderColor = resetData.tintColor.cgColor
         sortMethodSelector.layer.borderWidth = 1.0
         sortMethodSelector.layer.masksToBounds = true
+        showWeatherSelector.layer.cornerRadius = 15.0
+        showWeatherSelector.layer.borderColor = resetData.tintColor.cgColor
+        showWeatherSelector.layer.borderWidth = 1.0
+        showWeatherSelector.layer.masksToBounds = true
+        
+        if !StorageEnclave.Access.isPasswordSet() {
+            changePassword.setTitle("Set Password", for: .normal)
+        }
         
         if StorageEnclave.Access.getSelectedStatus() != nil {
             shownTasksSelector.selectedSegmentIndex = StorageEnclave.Access.getSelectedStatus()!.rawValue + 1
@@ -36,6 +41,11 @@ class SettingsViewController: UIViewController {
             } else {
                 sortMethodSelector.selectedSegmentIndex = 2
             }
+        }
+        
+        print(StorageEnclave.Access.isWeatherShown())
+        if StorageEnclave.Access.isWeatherShown() {
+            showWeatherSelector.selectedSegmentIndex = 1
         }
     }
     
@@ -189,6 +199,9 @@ class SettingsViewController: UIViewController {
         }
     }
     
+    @IBAction func toggleWeather(_ sender: Any) {
+        StorageEnclave.Access.toggleWeather()
+    }
     //MARK:- Return Button
     
     @IBAction func returnToTaskView(_ sender: Any) {

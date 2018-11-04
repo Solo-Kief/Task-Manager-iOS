@@ -5,22 +5,80 @@
 //  Copyright © 2018 Phoenix Development. All rights reserved.
 
 import UIKit
+import MapKit
 
-class TaskViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TaskViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     @IBOutlet var tableView: UITableView!
+    
+    @IBOutlet var weatherSymbol: UILabel!
+    @IBOutlet var weatherTemperature: UILabel!
+    @IBOutlet var weatherHighTemperature: UILabel!
+    @IBOutlet var weatherLowTemperature: UILabel!
+    @IBOutlet var tableViewBottom: NSLayoutConstraint!
     
     var selectedTask: Int?
     var inclusions: [Int]?
+    var GPS = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.separatorStyle = .none
         inclusionUpdater()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            GPS.delegate = self
+            GPS.desiredAccuracy = kCLLocationAccuracyBest
+            if self.GPS.responds(to: (#selector(CLLocationManager.requestAlwaysAuthorization))) {
+                GPS.requestAlwaysAuthorization()
+            } else {
+                GPS.startUpdatingLocation()
+            }
+        }
+        GPS.startUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        GPS.stopUpdatingLocation()
+        DarkSky.getWeather(latitude: GPS.location?.coordinate.latitude, longitude: GPS.location?.coordinate.latitude) { data in
+            self.weatherSymbol.text = data?.condition?.icon
+            
+            if data?.temperature != nil {
+                self.weatherTemperature.text = "\(String(Int((data?.temperature?.rounded())!)))ºF"
+            } else {
+                self.weatherTemperature.text = "-"
+            }
+            
+            if data?.lowTemperature != nil {
+                self.weatherLowTemperature.text = "\(String(Int((data?.lowTemperature?.rounded())!)))ºF"
+            } else {
+                self.weatherLowTemperature.text = "-"
+            }
+            
+            if data?.highTemperature != nil {
+                self.weatherHighTemperature.text = "\(String(Int((data?.highTemperature?.rounded())!)))ºF"
+            } else {
+                self.weatherHighTemperature.text = "-"
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         inclusionUpdater()
         tableView.reloadData()
+        
+        if StorageEnclave.Access.isWeatherShown() {
+            weatherSymbol.isHidden = false
+            weatherTemperature.isHidden = false
+            weatherLowTemperature.isHidden = false
+            weatherHighTemperature.isHidden = false
+            tableViewBottom.constant = 140
+        } else {
+            weatherSymbol.isHidden = true
+            weatherTemperature.isHidden = true
+            weatherLowTemperature.isHidden = true
+            weatherHighTemperature.isHidden = true
+            tableViewBottom.constant = 40
+        }
     }
     
     func inclusionUpdater() { //Keeps a list of all tasks that meet this condition
